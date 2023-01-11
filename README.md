@@ -19,7 +19,6 @@ module "terraform_snowflake_user" {
 ```
 ---
 
-Terraform module for Snowflake user management.
 <!-- BEGIN_TF_DOCS -->
 # Snowflake User
 
