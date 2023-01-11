@@ -70,13 +70,6 @@ variable "rsa_public_key" {
   default     = null
 }
 
-#variable "rsa_private_key" {
-#  description = "Specifies the user's RSA private key - used only if `rsa_key_to_aws_secretmanager = true`"
-#  type        = string
-#  default     = null
-#}
-
-
 variable "rsa_public_key_2" {
   description = <<EOT
     Specifies the user's second RSA public key; used to rotate the public and private keys 
