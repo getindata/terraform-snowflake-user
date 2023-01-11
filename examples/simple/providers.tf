@@ -1,3 +1,2 @@
 provider "null" {
-  # Configuration options
 }

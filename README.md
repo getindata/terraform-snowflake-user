@@ -10,6 +10,13 @@
   <h3 align="center">We help companies turn their data into assets</h3>
 </p>
 
+Terraform module for creating Snowflake user. 
+## Usage
+```terraform
+module "terraform_snowflake_user" {
+  source = "getindata/terraform-snowflake/user"
+}
+```
 ---
 
 Terraform module for Snowflake user management.
@@ -86,7 +93,7 @@ Terraform module can:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.47 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.54 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 4.0 |
 
 ## Requirements
@@ -94,7 +101,7 @@ Terraform module can:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.47 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.54 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | ~> 4.0 |
 
 ## Resources

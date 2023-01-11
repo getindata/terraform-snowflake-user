@@ -1,4 +1,3 @@
-module "terraform_module_template" {
+module "terraform_snowflake_user" {
   source = "../../"
-
 }

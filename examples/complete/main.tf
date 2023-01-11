@@ -1,5 +1,3 @@
-module "terraform_module_template" {
-  source  = "../../"
-  context = module.this.context
-
+module "terraform_snowflake_user" {
+  source = "../../"
 }
