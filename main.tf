@@ -1,15 +1,48 @@
-# Example resource that outputs the input value and 
-# echoes it's base64 encoded version locally 
+/*
+* # Snowflake User
+* 
+* Terraform module can:
+* * Create and manage Snowflake Users
+* * Automatically generate RSA private and public keys for the user
+*/
+module "this_label_rsa_key" {
+  source  = "cloudposse/label/null"
+  version = "0.25.0"
 
-resource "null_resource" "output_input" {
-  count = local.enabled ? 1 : 0
+  context          = module.this.context
+  label_key_case   = "lower"
+  attributes       = ["snowflake", "rsa", "key"]
+  label_value_case = "lower"
+  delimiter        = "-"
+}
 
-  triggers = {
-    name  = local.name_from_descriptor
-    input = var.example_var
-  }
+resource "tls_private_key" "this" {
+  count = var.generate_rsa_key ? 1 : 0
 
-  provisioner "local-exec" {
-    command = "echo ${var.example_var} | base64"
-  }
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "snowflake_user" "this" {
+  disabled = !module.this.enabled
+
+  name         = local.name_from_descriptor
+  login_name   = var.login_name
+  display_name = var.display_name
+  comment      = var.comment
+
+  password             = var.password
+  must_change_password = true # When password set here - always change password on login
+
+  email      = var.email
+  first_name = var.first_name
+  last_name  = var.last_name
+
+  default_namespace       = var.default_namespace
+  default_warehouse       = var.default_warehouse
+  default_role            = var.default_role
+  default_secondary_roles = var.default_secondary_roles
+
+  rsa_public_key   = local.rsa_public_key
+  rsa_public_key_2 = var.rsa_public_key_2
 }
