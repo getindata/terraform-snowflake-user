@@ -12,7 +12,7 @@
 
 ---
 
-Terraform module for Snowflake schema management.
+Terraform module for Snowflake user management.
 <!-- BEGIN_TF_DOCS -->
 # Snowflake User
 
