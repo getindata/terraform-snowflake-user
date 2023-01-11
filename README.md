@@ -1,3 +1,18 @@
+# Snowflake Schema Terraform Module
+![Snowflake](https://img.shields.io/badge/-SNOWFLAKE-249edc?style=for-the-badge&logo=snowflake&logoColor=white)
+![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)
+
+![License](https://badgen.net/github/license/getindata/terraform-snowflake-user/)
+![Release](https://badgen.net/github/release/getindata/terraform-snowflake-user/)
+
+<p align="center">
+  <img height="150" src="https://getindata.com/img/logo.svg">
+  <h3 align="center">We help companies turn their data into assets</h3>
+</p>
+
+---
+
+Terraform module for Snowflake schema management.
 <!-- BEGIN_TF_DOCS -->
 # Snowflake User
 
