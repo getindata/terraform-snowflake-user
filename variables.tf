@@ -4,12 +4,6 @@ variable "login_name" {
   default     = null
 }
 
-variable "password" {
-  description = "Initial password set for the user (will have to be chaned on first login)."
-  type        = string
-  default     = null
-}
-
 variable "display_name" {
   description = "Name displayed for the user in the Snowflake web interface."
   type        = string
@@ -95,4 +89,9 @@ variable "descriptor_name" {
   description = "Name of the descriptor used to form a Snowflake User name"
   type        = string
   default     = "snowflake-user"
+}
+variable "generate_password" {
+  description = "Name of the descriptor used to form a Snowflake User name"
+  type        = bool
+  default     = false
 }

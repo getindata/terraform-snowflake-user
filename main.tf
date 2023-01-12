@@ -21,6 +21,12 @@ resource "tls_private_key" "this" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
+resource "random_password" "this" {
+  count            = var.generate_password ? 1 : 0
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
 
 resource "snowflake_user" "this" {
   count = module.this.enabled ? 1 : 0
@@ -30,7 +36,7 @@ resource "snowflake_user" "this" {
   display_name = var.display_name
   comment      = var.comment
 
-  password             = var.password
+  password             = one(random_password.this[*].result)
   must_change_password = true # When password set here - always change password on login
 
   email      = var.email
