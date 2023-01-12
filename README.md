@@ -110,3 +110,21 @@ Terraform module can:
 | [snowflake_user.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/user) | resource |
 | [tls_private_key.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 <!-- END_TF_DOCS -->
+## CONTRIBUTING
+
+Contributions are very welcomed!
+
+Start by reviewing [contribution guide](CONTRIBUTING.md) and our [code of conduct](CODE_OF_CONDUCT.md). After that, start coding and ship your changes by creating a new PR.
+
+## LICENSE
+
+Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
+
+## AUTHORS
+
+<!--- Replace repository name -->
+<a href="https://github.com/getindata/REPO_NAME/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=getindata/terraform-module-template" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
