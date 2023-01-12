@@ -5,7 +5,8 @@
 * * Create and manage Snowflake Users
 * * Automatically generate RSA private and public keys for the user
 */
-module "this_label_rsa_key" {
+module "user_label" {
+  count   = module.this.enabled ? 1 : 0
   source  = "cloudposse/label/null"
   version = "0.25.0"
 
@@ -24,7 +25,7 @@ resource "tls_private_key" "this" {
 }
 
 resource "snowflake_user" "this" {
-  disabled = !module.this.enabled
+  count = module.this.enabled ? 1 : 0
 
   name         = local.name_from_descriptor
   login_name   = var.login_name

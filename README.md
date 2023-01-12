@@ -71,22 +71,22 @@ Terraform module can:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_this_label_rsa_key"></a> [this\_label\_rsa\_key](#module\_this\_label\_rsa\_key) | cloudposse/label/null | 0.25.0 |
+| <a name="module_user_label"></a> [user\_label](#module\_user\_label) | cloudposse/label/null | 0.25.0 |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_default_namespace"></a> [default\_namespace](#output\_default\_namespace) | Specifies the namespace (database only or database and schema) that is active by default for the user's session upon login. |
-| <a name="output_default_role"></a> [default\_role](#output\_default\_role) | Specifies the role that is active by default for the user's session upon login. |
-| <a name="output_default_warehouse"></a> [default\_warehouse](#output\_default\_warehouse) | Specifies the virtual warehouse that is active by default for the user's session upon login. |
-| <a name="output_disabled"></a> [disabled](#output\_disabled) | Whether user account is disabled. |
-| <a name="output_display_name"></a> [display\_name](#output\_display\_name) | Name displayed for the user in the Snowflake web interface. |
-| <a name="output_email"></a> [email](#output\_email) | Email address for the user. |
-| <a name="output_first_name"></a> [first\_name](#output\_first\_name) | First name od the user. |
-| <a name="output_last_name"></a> [last\_name](#output\_last\_name) | Last name od the user. |
-| <a name="output_login_name"></a> [login\_name](#output\_login\_name) | The name users use to log in. |
-| <a name="output_name"></a> [name](#output\_name) | Name of the user. |
+| <a name="output_default_namespace"></a> [default\_namespace](#output\_default\_namespace) | Specifies the namespace (database only or database and schema) that is active by default for the user's session upon login |
+| <a name="output_default_role"></a> [default\_role](#output\_default\_role) | Specifies the role that is active by default for the user's session upon login |
+| <a name="output_default_warehouse"></a> [default\_warehouse](#output\_default\_warehouse) | Specifies the virtual warehouse that is active by default for the user's session upon login |
+| <a name="output_disabled"></a> [disabled](#output\_disabled) | Whether user account is disabled |
+| <a name="output_display_name"></a> [display\_name](#output\_display\_name) | Name displayed for the user in the Snowflake web interface |
+| <a name="output_email"></a> [email](#output\_email) | Email address for the user |
+| <a name="output_first_name"></a> [first\_name](#output\_first\_name) | First name od the user |
+| <a name="output_last_name"></a> [last\_name](#output\_last\_name) | Last name od the user |
+| <a name="output_login_name"></a> [login\_name](#output\_login\_name) | The name users use to log in |
+| <a name="output_name"></a> [name](#output\_name) | Name of the user |
 
 ## Providers
 
