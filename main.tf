@@ -6,7 +6,6 @@
 * * Automatically generate RSA private and public keys for the user
 */
 module "user_label" {
-  count   = module.this.enabled ? 1 : 0
   source  = "cloudposse/label/null"
   version = "0.25.0"
 
