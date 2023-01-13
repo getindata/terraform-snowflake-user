@@ -24,7 +24,7 @@ resource "tls_private_key" "this" {
   rsa_bits  = 4096
 }
 resource "random_password" "this" {
-  count            = var.generate_password ? 1 : 0
+  count            = local.generate_password ? 1 : 0
   length           = 16
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"

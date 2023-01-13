@@ -91,7 +91,7 @@ variable "descriptor_name" {
   default     = "snowflake-user"
 }
 variable "generate_password" {
-  description = "Name of the descriptor used to form a Snowflake User name"
+  description = "Generate a random password using Terraform"
   type        = bool
   default     = false
 }

@@ -34,12 +34,12 @@ output "display_name" {
 }
 
 output "first_name" {
-  description = "First name od the user"
+  description = "First name of the user"
   value       = one(snowflake_user.this[*].first_name)
 }
 
 output "last_name" {
-  description = "Last name od the user"
+  description = "Last name of the user"
   value       = one(snowflake_user.this[*].last_name)
 }
 
