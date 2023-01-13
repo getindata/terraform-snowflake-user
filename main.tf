@@ -13,6 +13,8 @@ module "user_label" {
   delimiter           = coalesce(module.this.context.delimiter, "_")
   regex_replace_chars = coalesce(module.this.context.regex_replace_chars, "/[^_a-zA-Z0-9]/")
   label_value_case    = coalesce(module.this.context.label_value_case, "upper")
+  name                = "snowflake-user"
+
 }
 
 resource "tls_private_key" "this" {
