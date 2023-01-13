@@ -23,7 +23,7 @@ variable "email" {
 }
 
 variable "first_name" {
-  description = "First name od the user"
+  description = "First name of the user"
   type        = string
   default     = null
 }
