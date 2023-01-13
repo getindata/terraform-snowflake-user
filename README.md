@@ -1,4 +1,4 @@
-# Snowflake Schema Terraform Module
+# Snowflake User Terraform Module
 ![Snowflake](https://img.shields.io/badge/-SNOWFLAKE-249edc?style=for-the-badge&logo=snowflake&logoColor=white)
 ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)
 
@@ -15,6 +15,7 @@ Terraform module for creating Snowflake user.
 ```terraform
 module "terraform_snowflake_user" {
   source = "getindata/terraform-snowflake/user"
+  name = ""snowflake-user"
 }
 ```
 ---
