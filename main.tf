@@ -18,7 +18,7 @@ module "user_label" {
 }
 
 resource "tls_private_key" "this" {
-  count = var.generate_rsa_key ? 1 : 0
+  count = local.generate_rsa_key ? 1 : 0
 
   algorithm = "RSA"
   rsa_bits  = 4096
