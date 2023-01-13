@@ -1,15 +1,55 @@
-# Example resource that outputs the input value and 
-# echoes it's base64 encoded version locally 
+/*
+* # Snowflake User
+* 
+* Terraform module can:
+* * Create and manage Snowflake Users
+* * Automatically generate RSA private and public keys for the user
+*/
+module "user_label" {
+  source  = "cloudposse/label/null"
+  version = "0.25.0"
+  context = module.this.context
 
-resource "null_resource" "output_input" {
-  count = local.enabled ? 1 : 0
+  delimiter           = coalesce(module.this.context.delimiter, "_")
+  regex_replace_chars = coalesce(module.this.context.regex_replace_chars, "/[^_a-zA-Z0-9]/")
+  label_value_case    = coalesce(module.this.context.label_value_case, "upper")
+  name                = "snowflake-user"
 
-  triggers = {
-    name  = local.name_from_descriptor
-    input = var.example_var
-  }
+}
 
-  provisioner "local-exec" {
-    command = "echo ${var.example_var} | base64"
-  }
+resource "tls_private_key" "this" {
+  count = local.generate_rsa_key ? 1 : 0
+
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+resource "random_password" "this" {
+  count            = local.generate_password ? 1 : 0
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "snowflake_user" "this" {
+  count = module.this.enabled ? 1 : 0
+
+  name         = local.name_from_descriptor
+  login_name   = var.login_name
+  display_name = var.display_name
+  comment      = var.comment
+
+  password             = one(random_password.this[*].result)
+  must_change_password = true # When password set here - always change password on login
+
+  email      = var.email
+  first_name = var.first_name
+  last_name  = var.last_name
+
+  default_namespace       = var.default_namespace
+  default_warehouse       = var.default_warehouse
+  default_role            = var.default_role
+  default_secondary_roles = var.default_secondary_roles
+
+  rsa_public_key   = local.rsa_public_key
+  rsa_public_key_2 = var.rsa_public_key_2
 }

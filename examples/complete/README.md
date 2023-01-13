@@ -1,11 +1,10 @@
 # Complete Example
 
 ```terraform
-module "terraform_module_template" {
+module "terraform_snowflake_user" {
   source  = "../../"
   context = module.this.context
-
-  example_var = "This is a example value."
+  name    = "snowflake-user"
 }
 ```
 
