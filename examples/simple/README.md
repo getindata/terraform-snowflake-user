@@ -3,7 +3,7 @@
 ```terraform
 module "terraform_snowflake_user" {
   source  = "../../"
-  name = "test-account"
+  name    = "snowflake-user"
 }
 ```
 

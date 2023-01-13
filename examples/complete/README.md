@@ -4,8 +4,7 @@
 module "terraform_snowflake_user" {
   source  = "../../"
   context = module.this.context
-  name = "test-account"
- 
+  name    = "snowflake-user"
 }
 ```
 

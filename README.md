@@ -126,8 +126,8 @@ Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
 ## AUTHORS
 
 <!--- Replace repository name -->
-<a href="https://github.com/getindata/REPO_NAME/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=getindata/terraform-module-template" />
+<a href="https://github.com/getindata/terraform-snowflake-user/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=getindata/terraform-snowflake-user" />
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
