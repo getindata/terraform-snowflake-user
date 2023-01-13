@@ -15,7 +15,7 @@ Terraform module for creating Snowflake user.
 ```terraform
 module "terraform_snowflake_user" {
   source = "getindata/terraform-snowflake/user"
-  name = ""snowflake-user"
+  name = "snowflake-user"
 }
 ```
 ---
