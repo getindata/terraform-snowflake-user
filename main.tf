@@ -21,7 +21,7 @@ resource "tls_private_key" "this" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
-    
+
 resource "random_password" "this" {
   count            = local.generate_password ? 1 : 0
   length           = 16
