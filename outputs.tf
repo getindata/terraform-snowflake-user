@@ -48,7 +48,7 @@ output "email" {
   value       = one(snowflake_user.this[*].email)
 }
 
-output "passowrd" {
+output "password" {
   description = "Password set for the user"
   value       = one(random_password.this[*].result)
   sensitive   = true
