@@ -38,7 +38,7 @@ resource "snowflake_user" "this" {
   comment      = var.comment
 
   password             = one(random_password.this[*].result)
-  must_change_password = true # When password set here - always change password on login
+  must_change_password = var.must_change_password
 
   email      = var.email
   first_name = var.first_name

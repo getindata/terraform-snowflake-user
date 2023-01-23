@@ -58,6 +58,7 @@ Terraform module can:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_last_name"></a> [last\_name](#input\_last\_name) | Last name of the user | `string` | `null` | no |
 | <a name="input_login_name"></a> [login\_name](#input\_login\_name) | The name users use to log in. If not supplied, snowflake will use name instead. | `string` | `null` | no |
+| <a name="input_must_change_password"></a> [must\_change\_password](#input\_must\_change\_password) | Should the user change the password on login. Should be set to true for non serviice account users | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
@@ -88,6 +89,8 @@ Terraform module can:
 | <a name="output_last_name"></a> [last\_name](#output\_last\_name) | Last name of the user |
 | <a name="output_login_name"></a> [login\_name](#output\_login\_name) | The name users use to log in |
 | <a name="output_name"></a> [name](#output\_name) | Name of the user |
+| <a name="output_passowrd"></a> [passowrd](#output\_passowrd) | Password set for the user |
+| <a name="output_rsa_private_key"></a> [rsa\_private\_key](#output\_rsa\_private\_key) | RSA Private key used for authentication |
 
 ## Providers
 
