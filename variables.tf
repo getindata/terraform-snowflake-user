@@ -98,7 +98,7 @@ variable "generate_password" {
 }
 
 variable "must_change_password" {
-  description = "Should the user change the password on login. Should be set to true for non serviice account users"
+  description = "Should the user change the password on login. Should be set to true for non service account users"
   type        = bool
   default     = true
 }
