@@ -47,3 +47,15 @@ output "email" {
   description = "Email address for the user"
   value       = one(snowflake_user.this[*].email)
 }
+
+output "password" {
+  description = "Password set for the user"
+  value       = one(random_password.this[*].result)
+  sensitive   = true
+}
+
+output "rsa_private_key" {
+  description = "RSA Private key used for authentication"
+  value       = one(tls_private_key.this[*].private_key_pem)
+  sensitive   = true
+}

@@ -90,8 +90,15 @@ variable "descriptor_name" {
   type        = string
   default     = "snowflake-user"
 }
+
 variable "generate_password" {
   description = "Generate a random password using Terraform"
   type        = bool
   default     = false
+}
+
+variable "must_change_password" {
+  description = "Should the user change the password on login. Should be set to true for non service account users"
+  type        = bool
+  default     = true
 }
