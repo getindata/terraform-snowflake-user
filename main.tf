@@ -4,6 +4,7 @@
 * Terraform module can:
 * * Create and manage Snowflake Users
 * * Automatically generate RSA private and public keys for the user
+* * Grant `default_role` and `default_secondary_roles` to Snowflake User
 */
 module "user_label" {
   source  = "cloudposse/label/null"
@@ -51,4 +52,18 @@ resource "snowflake_user" "this" {
 
   rsa_public_key   = local.rsa_public_key
   rsa_public_key_2 = var.rsa_public_key_2
+}
+
+resource "snowflake_role_grants" "default_role" {
+  count = var.grant_default_roles && var.default_role != null ? 1 : 0
+
+  role_name = var.default_role
+  users     = [one(resource.snowflake_user.this[*].name)]
+}
+
+resource "snowflake_role_grants" "default_secondary_roles" {
+  for_each = var.grant_default_roles ? toset(var.default_secondary_roles) : []
+
+  role_name = each.key
+  users     = [one(resource.snowflake_user.this[*].name)]
 }

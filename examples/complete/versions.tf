@@ -1,10 +1,9 @@
 terraform {
-  required_version = ">= 1.3.0"
-
+  required_version = ">= 1.3"
   required_providers {
-    null = {
-      source  = "hashicorp/null"
-      version = "3.1.1"
+    snowflake = {
+      source  = "Snowflake-Labs/snowflake"
+      version = "~> 0.54"
     }
   }
 }

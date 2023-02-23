@@ -102,3 +102,9 @@ variable "must_change_password" {
   type        = bool
   default     = true
 }
+
+variable "grant_default_roles" {
+  description = "Whether to grant defalut_role and default_secondary_roles to Snowflake User"
+  type        = bool
+  default     = true
+}
