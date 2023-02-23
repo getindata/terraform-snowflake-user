@@ -16,4 +16,3 @@ module "terraform_snowflake_user" {
   default_role            = resource.snowflake_role.user_role.name
   default_secondary_roles = [resource.snowflake_role.secondary_role.name]
 }
-
