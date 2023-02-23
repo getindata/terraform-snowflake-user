@@ -1,11 +1,3 @@
-/*
-* # Snowflake User
-* 
-* Terraform module can:
-* * Create and manage Snowflake Users
-* * Automatically generate RSA private and public keys for the user
-* * Grant `default_role` and `default_secondary_roles` to Snowflake User
-*/
 module "user_label" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
