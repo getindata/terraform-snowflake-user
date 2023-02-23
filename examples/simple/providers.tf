@@ -1,2 +1,1 @@
-provider "null" {
-}
+provider "snowflake" {}
