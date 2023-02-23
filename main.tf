@@ -9,14 +9,15 @@ module "user_label" {
 }
 
 resource "tls_private_key" "this" {
-  count = local.generate_rsa_key ? 1 : 0
+  count = module.this.enabled && local.generate_rsa_key ? 1 : 0
 
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
 resource "random_password" "this" {
-  count            = local.generate_password ? 1 : 0
+  count = module.this.enabled && local.generate_password ? 1 : 0
+
   length           = 16
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
@@ -47,14 +48,14 @@ resource "snowflake_user" "this" {
 }
 
 resource "snowflake_role_grants" "default_role" {
-  count = var.grant_default_roles && var.default_role != null ? 1 : 0
+  count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
 
   role_name = var.default_role
   users     = [one(resource.snowflake_user.this[*].name)]
 }
 
 resource "snowflake_role_grants" "default_secondary_roles" {
-  for_each = var.grant_default_roles ? toset(var.default_secondary_roles) : []
+  for_each = module.this.enabled && var.grant_default_roles ? toset(var.default_secondary_roles) : []
 
   role_name = each.key
   users     = [one(resource.snowflake_user.this[*].name)]
