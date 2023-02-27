@@ -53,9 +53,17 @@ variable "default_role" {
 }
 
 variable "default_secondary_roles" {
-  description = "Specifies the set of secondary roles that are active for the user's session upon login."
+  description = <<EOT
+    Specifies the set of secondary roles that are active for the user's session upon login. 
+    Secondary roles are a set of roles that authorize any SQL action other than the execution of CREATE <object> statements. 
+    Currently only ["ALL"] value is supported
+  EOT
   type        = list(string)
   default     = []
+  validation {
+    condition     = var.default_secondary_roles[0] == "ALL"
+    error_message = "Currently only [\"ALL\"] value is supported by Snowflake provider."
+  }
 }
 
 variable "rsa_public_key" {

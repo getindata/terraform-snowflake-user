@@ -2,10 +2,6 @@ resource "snowflake_role" "user_role" {
   name = "SNOWFLAKE_USER_ROLE"
 }
 
-resource "snowflake_role" "secondary_role" {
-  name = "SNOWFLAKE_SECOND_ROLE"
-}
-
 module "terraform_snowflake_user" {
   source            = "../../"
   context           = module.this.context
@@ -14,5 +10,5 @@ module "terraform_snowflake_user" {
   generate_password = true
 
   default_role            = resource.snowflake_role.user_role.name
-  default_secondary_roles = [resource.snowflake_role.secondary_role.name]
+  default_secondary_roles = ["ALL"]
 }

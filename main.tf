@@ -53,10 +53,3 @@ resource "snowflake_role_grants" "default_role" {
   role_name = var.default_role
   users     = [one(resource.snowflake_user.this[*].name)]
 }
-
-resource "snowflake_role_grants" "default_secondary_roles" {
-  for_each = module.this.enabled && var.grant_default_roles ? toset(var.default_secondary_roles) : []
-
-  role_name = each.key
-  users     = [one(resource.snowflake_user.this[*].name)]
-}
