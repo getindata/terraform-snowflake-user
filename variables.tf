@@ -61,7 +61,7 @@ variable "default_secondary_roles" {
   type        = list(string)
   default     = []
   validation {
-    condition     = var.default_secondary_roles[0] == "ALL"
+    condition     = var.default_secondary_roles == null || contains([0, 1], length(var.default_secondary_roles)) || contains(var.default_secondary_roles, "ALL")
     error_message = "Currently only [\"ALL\"] value is supported by Snowflake provider."
   }
 }
