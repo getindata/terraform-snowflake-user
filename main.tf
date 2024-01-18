@@ -24,7 +24,7 @@ resource "random_password" "this" {
 }
 
 resource "snowflake_user" "this" {
-  count = module.this.enabled ? 1 : 0
+  count = module.this.enabled && !var.ignore_changes_on_defaults ? 1 : 0
 
   name         = local.name_from_descriptor
   login_name   = var.login_name
@@ -47,9 +47,41 @@ resource "snowflake_user" "this" {
   rsa_public_key_2 = var.rsa_public_key_2
 }
 
+resource "snowflake_user" "defaults_not_enforced" {
+  count = module.this.enabled && var.ignore_changes_on_defaults ? 1 : 0
+
+  name         = local.name_from_descriptor
+  login_name   = var.login_name
+  display_name = var.display_name
+  comment      = var.comment
+
+  password             = one(random_password.this[*].result)
+  must_change_password = var.must_change_password
+
+  email      = var.email
+  first_name = var.first_name
+  last_name  = var.last_name
+
+  default_namespace       = var.default_namespace
+  default_warehouse       = var.default_warehouse
+  default_role            = var.default_role
+  default_secondary_roles = var.default_secondary_roles
+
+  rsa_public_key   = local.rsa_public_key
+  rsa_public_key_2 = var.rsa_public_key_2
+
+  lifecycle {
+    ignore_changes = [
+      default_namespace,
+      default_warehouse,
+      default_role,
+    ]
+  }
+}
+
 resource "snowflake_role_grants" "default_role" {
   count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
 
   role_name = var.default_role
-  users     = [one(resource.snowflake_user.this[*].name)]
+  users     = [one(local.snowflake_user[*].name)]
 }
