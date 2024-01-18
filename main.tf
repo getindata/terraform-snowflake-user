@@ -83,5 +83,5 @@ resource "snowflake_role_grants" "default_role" {
   count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
 
   role_name = var.default_role
-  users     = [local.snowflake_user.name]
+  users     = [one(local.snowflake_user[*].name)]
 }
