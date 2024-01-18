@@ -117,8 +117,8 @@ variable "grant_default_roles" {
   default     = true
 }
 
-variable "enforce_defaults" {
-  description = "Whether to enforce configuration of `default_warehouse` and `default_role`"
+variable "ignore_changes_on_defaults" {
+  description = "Whether to ignore configuration of `default_warehouse`, `default_role` and `default_namespace`"
   type        = bool
-  default     = true
+  default     = false
 }

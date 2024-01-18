@@ -24,7 +24,7 @@ resource "random_password" "this" {
 }
 
 resource "snowflake_user" "this" {
-  count = module.this.enabled && var.enforce_defaults ? 1 : 0
+  count = module.this.enabled && !var.ignore_changes_on_defaults ? 1 : 0
 
   name         = local.name_from_descriptor
   login_name   = var.login_name
@@ -48,7 +48,7 @@ resource "snowflake_user" "this" {
 }
 
 resource "snowflake_user" "defaults_not_enforced" {
-  count = module.this.enabled && !var.enforce_defaults ? 1 : 0
+  count = module.this.enabled && var.ignore_changes_on_defaults ? 1 : 0
 
   name         = local.name_from_descriptor
   login_name   = var.login_name
@@ -83,5 +83,5 @@ resource "snowflake_role_grants" "default_role" {
   count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
 
   role_name = var.default_role
-  users     = var.enforce_defaults ? resource.snowflake_user.this[*].name : resource.snowflake_user.defaults_not_enforced[*].name
+  users     = [local.snowflake_user.name]
 }
