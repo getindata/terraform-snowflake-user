@@ -13,5 +13,9 @@ terraform {
       source  = "hashicorp/random"
       version = ">= 3.0.0"
     }
+    context = {
+      source  = "cloudposse/context"
+      version = ">=0.4.0"
+    }
   }
 }
