@@ -1,7 +1,8 @@
 data "context_config" "this" {}
 
 data "context_label" "user" {
-  properties = var.user_descriptor_format
+  properties = var.context_properties
+  template   = var.context_template
   values = {
     name = var.name
   }

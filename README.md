@@ -40,6 +40,8 @@ module "terraform_snowflake_user" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_comment"></a> [comment](#input\_comment) | Comment / description of Snowflake user | `string` | `null` | no |
+| <a name="input_context_properties"></a> [context\_properties](#input\_context\_properties) | Specifies list of context properties used to create a Snowflake User name - this variable conflicts with `context_template` | `list(string)` | <pre>[<br>  "stage",<br>  "name"<br>]</pre> | no |
+| <a name="input_context_template"></a> [context\_template](#input\_context\_template) | Specifies a context template for a Snowflake User name generation - this variable conflicts with `context_template` | `string` | `null` | no |
 | <a name="input_default_namespace"></a> [default\_namespace](#input\_default\_namespace) | Specifies the namespace (database only or database and schema) that is active by default for the user's session upon login. | `string` | `null` | no |
 | <a name="input_default_role"></a> [default\_role](#input\_default\_role) | Specifies the role that is active by default for the user's session upon login. | `string` | `null` | no |
 | <a name="input_default_secondary_roles"></a> [default\_secondary\_roles](#input\_default\_secondary\_roles) | Specifies the set of secondary roles that are active for the user's session upon login. <br>    Secondary roles are a set of roles that authorize any SQL action other than the execution of CREATE <object> statements. <br>    Currently only ["ALL"] value is supported | `list(string)` | `[]` | no |
@@ -57,7 +59,6 @@ module "terraform_snowflake_user" {
 | <a name="input_name"></a> [name](#input\_name) | Resource name | `string` | n/a | yes |
 | <a name="input_rsa_public_key"></a> [rsa\_public\_key](#input\_rsa\_public\_key) | Specifies the user's RSA public key; used for key-pair authentication. Must be on 1 line without header and trailer. | `string` | `null` | no |
 | <a name="input_rsa_public_key_2"></a> [rsa\_public\_key\_2](#input\_rsa\_public\_key\_2) | Specifies the user's second RSA public key; used to rotate the public and private keys <br>    for key-pair authentication based on an expiration schedule set by your organization. <br>    Must be on 1 line without header and trailer." | `string` | `null` | no |
-| <a name="input_user_descriptor_format"></a> [user\_descriptor\_format](#input\_user\_descriptor\_format) | Specifies a descriptor format for a Snowflake User name | `list(string)` | <pre>[<br>  "stage",<br>  "name"<br>]</pre> | no |
 
 ## Modules
 

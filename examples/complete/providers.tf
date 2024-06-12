@@ -2,15 +2,17 @@ provider "snowflake" {}
 
 provider "context" {
   properties = {
-    "stage"     = {}
-    "name"      = { required = true }
-    "Terraform" = {}
+    "environment" = {}
+    "stage"       = {}
+    "name"        = { required = true }
+    "Terraform"   = {}
   }
 
   delimiter = "_"
 
   values = {
-    stage       = "DEV"
+    environment = "DEV"
+    stage       = "Snowflake"
     "Terraform" = true
   }
 }

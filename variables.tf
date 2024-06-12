@@ -117,10 +117,16 @@ variable "ignore_changes_on_defaults" {
   default     = false
 }
 
-variable "user_descriptor_format" {
-  description = "Specifies a descriptor format for a Snowflake User name"
+variable "context_properties" {
+  description = "Specifies list of context properties used to create a Snowflake User name - this variable conflicts with `context_template`"
   type        = list(string)
   default     = ["stage", "name"]
+}
+
+variable "context_template" {
+  description = "Specifies a context template for a Snowflake User name generation - this variable conflicts with `context_template`"
+  type        = string
+  default     = null
 }
 
 variable "name" {
