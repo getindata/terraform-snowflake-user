@@ -93,12 +93,6 @@ variable "generate_rsa_key" {
   default     = false
 }
 
-variable "descriptor_name" {
-  description = "Name of the descriptor used to form a Snowflake User name"
-  type        = string
-  default     = "snowflake-user"
-}
-
 variable "generate_password" {
   description = "Generate a random password using Terraform"
   type        = bool
@@ -121,4 +115,21 @@ variable "ignore_changes_on_defaults" {
   description = "Whether to ignore configuration of `default_warehouse`, `default_role` and `default_namespace`"
   type        = bool
   default     = false
+}
+
+variable "context_properties" {
+  description = "Specifies list of context properties used to create a Snowflake User name - this variable conflicts with `context_template`"
+  type        = list(string)
+  default     = ["stage", "name"]
+}
+
+variable "context_template" {
+  description = "Specifies a context template for a Snowflake User name generation - this variable conflicts with `context_template`"
+  type        = string
+  default     = null
+}
+
+variable "name" {
+  description = "Resource name"
+  type        = string
 }
