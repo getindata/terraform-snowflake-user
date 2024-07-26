@@ -79,9 +79,9 @@ resource "snowflake_user" "defaults_not_enforced" {
   }
 }
 
-resource "snowflake_role_grants" "default_role" {
-  count = data.context_config.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
+resource "snowflake_grant_account_role" "default_role" {
+  count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
 
+  user_name = one(local.snowflake_user[*].name)
   role_name = var.default_role
-  users     = [one(local.snowflake_user[*].name)]
 }
