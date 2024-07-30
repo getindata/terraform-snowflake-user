@@ -105,7 +105,7 @@ module "terraform_snowflake_user" {
 | Name | Version |
 |------|---------|
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.90 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.94 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 4.0 |
 
 ## Requirements
@@ -114,7 +114,7 @@ module "terraform_snowflake_user" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.90 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.94 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | ~> 4.0 |
 
 ## Resources
