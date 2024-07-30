@@ -73,18 +73,18 @@ terraform destroy -var-file=fixtures.tfvars
 
 | Name | Version |
 |------|---------|
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.90 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.94 |
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.90 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.94 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [snowflake_role.user_role](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/role) | resource |
+| [snowflake_account_role.user_role](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/account_role) | resource |
 <!-- END_TF_DOCS -->
