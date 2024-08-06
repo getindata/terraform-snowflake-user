@@ -25,7 +25,7 @@ output "login_name" {
 
 output "name" {
   description = "Name of the user"
-  value       = one(local.snowflake_user[*].name)
+  value       = nonsensitive(one(local.snowflake_user[*].name))
 }
 
 output "display_name" {
