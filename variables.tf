@@ -1,3 +1,13 @@
+variable "type" {
+  description = "Type of the user. Valid values are PERSON, SERVICE, LEGACY_SERVICE"
+  type        = string
+  default     = "PERSON"
+  validation {
+    condition     = contains(["PERSON", "SERVICE", "LEGACY_SERVICE"], var.type)
+    error_message = "Only PERSON, SERVICE, LEGACY_SERVICE values are supported by Snowflake provider."
+  }
+}
+
 variable "login_name" {
   description = "The name users use to log in. If not supplied, snowflake will use name instead."
   type        = string
@@ -23,13 +33,19 @@ variable "email" {
 }
 
 variable "first_name" {
-  description = "First name of the user"
+  description = "First name of the user (works only with `type = PERSON`)"
+  type        = string
+  default     = null
+}
+
+variable "middle_name" {
+  description = "Middle name of the user (works only with `type = PERSON`)"
   type        = string
   default     = null
 }
 
 variable "last_name" {
-  description = "Last name of the user"
+  description = "Last name of the user (works only with `type = PERSON`)"
   type        = string
   default     = null
 }
@@ -52,17 +68,16 @@ variable "default_role" {
   default     = null
 }
 
-variable "default_secondary_roles" {
+variable "default_secondary_roles_option" {
   description = <<EOT
-    Specifies the set of secondary roles that are active for the user's session upon login. 
-    Secondary roles are a set of roles that authorize any SQL action other than the execution of CREATE <object> statements. 
-    Currently only ["ALL"] value is supported
+    Specifies the secondary roles that are active for the user’s session upon login. 
+    Valid values are (case-insensitive): DEFAULT | NONE | ALL
   EOT
-  type        = list(string)
-  default     = []
+  type        = string
+  default     = "DEFAULT"
   validation {
-    condition     = var.default_secondary_roles == null || contains([0, 1], length(var.default_secondary_roles)) || contains(var.default_secondary_roles, "ALL")
-    error_message = "Currently only [\"ALL\"] value is supported by Snowflake provider."
+    condition     = contains(["DEFAULT", "ALL", "NONE"], var.default_secondary_roles_option)
+    error_message = "Only DEFAULT | NONE | ALL value is supported by Snowflake provider."
   }
 }
 
@@ -112,7 +127,53 @@ variable "grant_default_roles" {
 }
 
 variable "ignore_changes_on_defaults" {
-  description = "Whether to ignore configuration of `default_warehouse`, `default_role` and `default_namespace`"
+  description = "Whether to ignore configuration of `default_warehouse`, `default_role` and `default_namespace` (works only with `type = PERSON`)"
+  type        = bool
+  default     = false
+}
+
+variable "query_tag" {
+  description = "Optional string that can be used to tag queries and other SQL statements executed within a session."
+  type        = string
+  default     = null
+}
+
+variable "timezone" {
+  description = "Specifies the time zone for the session. You can specify a time zone name or a link name from release 2021a of the IANA Time Zone Database (e.g. America/Los_Angeles, Europe/London, UTC, Etc/GMT, etc.)."
+  type        = string
+  default     = null
+}
+
+variable "network_policy" {
+  description = " Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address."
+  type        = string
+  default     = null
+}
+
+variable "trace_level" {
+  description = "Controls how trace events are ingested into the event table."
+  type        = string
+  default     = null
+}
+
+variable "log_level" {
+  description = "Specifies the severity level of messages that should be ingested and made available in the active event table. Messages at the specified level (and at more severe levels) are ingested."
+  type        = string
+  default     = null
+}
+
+variable "enable_unredacted_query_syntax_error" {
+  description = <<EOT
+    Controls whether query text is redacted if a SQL query fails due to a syntax or parsing error. If FALSE, the content of a failed query is redacted in the views, pages, and functions that provide a query history. 
+    Only users with a role that is granted or inherits the AUDIT privilege can set the ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR parameter. 
+    When using the ALTER USER command to set the parameter to TRUE for a particular user, modify the user that you want to see the query text, not the user who executed the query (if those are different users).
+  EOT
+  type        = bool
+  default     = null
+}
+
+variable "disable_mfa" {
+  description = "Disable Multi-Factor Authentication for the user (works only with `type = PERSON`)"
   type        = bool
   default     = false
 }
