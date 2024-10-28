@@ -1,5 +1,3 @@
-data "context_config" "this" {}
-
 data "context_label" "this" {
   properties = local.context_template == null ? var.context_properties : null
   template   = local.context_template
@@ -9,14 +7,14 @@ data "context_label" "this" {
 }
 
 resource "tls_private_key" "this" {
-  count = local.generate_rsa_key ? 1 : 0
+  count = var.generate_rsa_key ? 1 : 0
 
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
 resource "random_password" "this" {
-  count = local.generate_password ? 1 : 0
+  count = var.generate_password ? 1 : 0
 
   length           = 36
   special          = true
@@ -158,7 +156,7 @@ resource "snowflake_legacy_service_user" "this" {
 }
 
 resource "snowflake_grant_account_role" "default_role" {
-  count = data.context_config.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
+  count = var.grant_default_roles && var.default_role != null ? 1 : 0
 
   user_name = one(local.snowflake_user[*].name)
   role_name = var.default_role
