@@ -1,3 +1,8 @@
+variable "name" {
+  description = "Name of the resource"
+  type        = string
+}
+
 variable "type" {
   description = "Type of the user. Valid values are PERSON, SERVICE, LEGACY_SERVICE"
   type        = string
@@ -181,16 +186,17 @@ variable "disable_mfa" {
 variable "context_properties" {
   description = "Specifies list of context properties used to create a Snowflake User name - this variable conflicts with `context_template`"
   type        = list(string)
-  default     = ["stage", "name"]
+  default     = ["environment", "name"]
 }
 
-variable "context_template" {
-  description = "Specifies a context template for a Snowflake User name generation - this variable conflicts with `context_template`"
-  type        = string
-  default     = null
+variable "context_templates" {
+  description = "Map of context templates used for naming conventions - this variable conflicts with `context_properties`"
+  type        = map(string)
+  default     = {}
 }
 
-variable "name" {
-  description = "Resource name"
+variable "context_template_name" {
+  description = "Name of the context template used to create resource name - this variable is used when, `var.context_templates` is set"
   type        = string
+  default     = "snowflake-user"
 }

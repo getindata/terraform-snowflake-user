@@ -4,7 +4,6 @@ resource "snowflake_account_role" "user_role" {
 
 module "terraform_snowflake_user_1" {
   source  = "../../"
-  context = module.this.context
   name    = "snowflake_user_1"
   comment = "Example Snowflake User"
 
@@ -29,8 +28,8 @@ module "terraform_snowflake_user_1" {
 
 module "terraform_snowflake_user_2" {
   source                     = "../../"
-  context                    = module.this.context
   name                       = "snowflake_user_2"
+  context_templates          = var.context_templates
   type                       = "PERSON"
   generate_rsa_key           = true
   generate_password          = true
@@ -54,12 +53,13 @@ module "terraform_snowflake_user_2" {
 }
 
 module "terraform_snowflake_service_user" {
-  source           = "../../"
-  context          = module.this.context
-  type             = "SERVICE"
-  name             = "service_user"
-  comment          = "Example Snowflake Service User"
-  generate_rsa_key = true
+  source                = "../../"
+  type                  = "SERVICE"
+  name                  = "service_user"
+  context_templates     = var.context_templates
+  context_template_name = "snowflake-service-user"
+  comment               = "Example Snowflake Service User"
+  generate_rsa_key      = true
 
 
   query_tag   = "SERVICE_USER"
@@ -70,11 +70,11 @@ module "terraform_snowflake_service_user" {
 }
 
 module "terraform_snowflake_legacy_service_user" {
-  source            = "../../"
-  context           = module.this.context
-  type              = "LEGACY_SERVICE"
-  name              = "legacy_service_user"
-  generate_password = true
+  source             = "../../"
+  type               = "LEGACY_SERVICE"
+  name               = "legacy_service_user"
+  context_properties = ["environment", "name", "stage"]
+  generate_password  = true
 
   query_tag = "LEGACY_SERVICE_USER"
 }

@@ -1,8 +1,8 @@
 data "context_config" "this" {}
 
-data "context_label" "user" {
-  properties = var.context_properties
-  template   = var.context_template
+data "context_label" "this" {
+  properties = local.context_template == null ? var.context_properties : null
+  template   = local.context_template
   values = {
     name = var.name
   }
@@ -24,9 +24,9 @@ resource "random_password" "this" {
 }
 
 resource "snowflake_user" "this" {
-  count = module.this.enabled && !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
+  count = data.context_config.this.enabled && !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
-  name         = data.context_label.user.rendered
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   comment      = var.comment
@@ -58,9 +58,9 @@ resource "snowflake_user" "this" {
 }
 
 resource "snowflake_user" "defaults_not_enforced" {
-  count = module.this.enabled && var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
+  count = data.context_config.this.enabled && var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
-  name         = data.context_label.user.rendered
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   comment      = var.comment
@@ -100,9 +100,9 @@ resource "snowflake_user" "defaults_not_enforced" {
 }
 
 resource "snowflake_service_user" "this" {
-  count = module.this.enabled && upper(var.type) == "SERVICE" ? 1 : 0
+  count = data.context_config.this.enabled && upper(var.type) == "SERVICE" ? 1 : 0
 
-  name         = local.name_from_descriptor
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
 
@@ -127,9 +127,9 @@ resource "snowflake_service_user" "this" {
 }
 
 resource "snowflake_legacy_service_user" "this" {
-  count = module.this.enabled && upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
+  count = data.context_config.this.enabled && upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
 
-  name         = local.name_from_descriptor
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
 
@@ -154,7 +154,7 @@ resource "snowflake_legacy_service_user" "this" {
 }
 
 resource "snowflake_grant_account_role" "default_role" {
-  count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
+  count = data.context_config.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
 
   user_name = one(local.snowflake_user[*].name)
   role_name = var.default_role

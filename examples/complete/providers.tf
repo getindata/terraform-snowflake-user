@@ -6,13 +6,15 @@ provider "context" {
     "stage"       = {}
     "name"        = { required = true }
     "Terraform"   = {}
+    #svc-suffix    = {}
   }
 
   delimiter = "_"
 
   values = {
-    environment = "DEV"
-    stage       = "Snowflake"
+    environment = "dev"
+    stage       = "snow"
     "Terraform" = true
+    #svc-suffix  = "svc"
   }
 }
