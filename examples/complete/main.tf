@@ -4,6 +4,7 @@ resource "snowflake_account_role" "user_role" {
 
 module "terraform_snowflake_user_1" {
   source  = "../../"
+
   name    = "snowflake_user_1"
   comment = "Example Snowflake User"
 
@@ -30,6 +31,7 @@ module "terraform_snowflake_user_2" {
   source                     = "../../"
   name                       = "snowflake_user_2"
   context_templates          = var.context_templates
+
   type                       = "PERSON"
   generate_rsa_key           = true
   generate_password          = true
