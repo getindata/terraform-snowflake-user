@@ -183,6 +183,12 @@ variable "disable_mfa" {
   default     = false
 }
 
+variable "disabled" {
+  description = " Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user."
+  type        = bool
+  default     = false
+}
+
 variable "context_properties" {
   description = "Specifies list of context properties used to create a Snowflake User name - this variable conflicts with `context_template`"
   type        = list(string)

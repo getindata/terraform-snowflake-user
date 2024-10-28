@@ -9,14 +9,14 @@ data "context_label" "this" {
 }
 
 resource "tls_private_key" "this" {
-  count = data.context_config.this.enabled && local.generate_rsa_key ? 1 : 0
+  count = local.generate_rsa_key ? 1 : 0
 
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
 resource "random_password" "this" {
-  count = data.context_config.this.enabled && local.generate_password ? 1 : 0
+  count = local.generate_password ? 1 : 0
 
   length           = 36
   special          = true
@@ -24,7 +24,7 @@ resource "random_password" "this" {
 }
 
 resource "snowflake_user" "this" {
-  count = data.context_config.this.enabled && !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
+  count = !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
   name         = data.context_label.this.rendered
   login_name   = var.login_name
@@ -33,6 +33,7 @@ resource "snowflake_user" "this" {
 
   password             = var.generate_password ? one(random_password.this[*].result) : null
   must_change_password = var.must_change_password
+  disabled             = var.disabled
   disable_mfa          = var.disable_mfa
 
   email       = var.email
@@ -58,7 +59,7 @@ resource "snowflake_user" "this" {
 }
 
 resource "snowflake_user" "defaults_not_enforced" {
-  count = data.context_config.this.enabled && var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
+  count = var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
   name         = data.context_label.this.rendered
   login_name   = var.login_name
@@ -67,6 +68,7 @@ resource "snowflake_user" "defaults_not_enforced" {
 
   password             = var.generate_password ? one(random_password.this[*].result) : null
   must_change_password = var.must_change_password
+  disabled             = var.disabled
   disable_mfa          = var.disable_mfa
 
   email       = var.email
@@ -100,14 +102,15 @@ resource "snowflake_user" "defaults_not_enforced" {
 }
 
 resource "snowflake_service_user" "this" {
-  count = data.context_config.this.enabled && upper(var.type) == "SERVICE" ? 1 : 0
+  count = upper(var.type) == "SERVICE" ? 1 : 0
 
   name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
 
-  comment = var.comment
-  email   = var.email
+  comment  = var.comment
+  email    = var.email
+  disabled = var.disabled
 
   default_warehouse              = var.default_warehouse
   default_secondary_roles_option = var.default_secondary_roles_option
@@ -127,11 +130,12 @@ resource "snowflake_service_user" "this" {
 }
 
 resource "snowflake_legacy_service_user" "this" {
-  count = data.context_config.this.enabled && upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
+  count = upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
 
   name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
+  disabled     = var.disabled
 
   password             = var.generate_password ? one(random_password.this[*].result) : null
   must_change_password = var.must_change_password
