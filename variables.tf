@@ -201,7 +201,7 @@ variable "naming_scheme" {
   type = object({
     properties            = optional(list(string), ["environment", "name"])
     delimiter             = optional(string, "_")
-    context_template_name = optional(string, "snowflake-role")
+    context_template_name = optional(string, "snowflake-user")
     replace_chars_regex   = optional(string, "[^a-zA-Z0-9_]")
     extra_labels          = optional(map(string))
   })
