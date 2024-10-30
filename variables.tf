@@ -1,3 +1,8 @@
+variable "name" {
+  description = "Name of the resource"
+  type        = string
+}
+
 variable "type" {
   description = "Type of the user. Valid values are PERSON, SERVICE, LEGACY_SERVICE"
   type        = string
@@ -108,12 +113,6 @@ variable "generate_rsa_key" {
   default     = false
 }
 
-variable "descriptor_name" {
-  description = "Name of the descriptor used to form a Snowflake User name"
-  type        = string
-  default     = "snowflake-user"
-}
-
 variable "generate_password" {
   description = "Generate a random password using Terraform"
   type        = bool
@@ -182,4 +181,35 @@ variable "disable_mfa" {
   description = "Disable Multi-Factor Authentication for the user (works only with `type = PERSON`)"
   type        = bool
   default     = false
+}
+
+variable "disabled" {
+  description = "Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user."
+  type        = bool
+  default     = false
+}
+
+variable "name_scheme" {
+  description = <<EOT
+  Naming scheme configuration for the resource. This configuration is used to generate names using context provider:
+    - `properties` - list of properties to use when creating the name - is superseded by `var.context_templates`
+    - `delimiter` - delimited used to create the name from `properties` - is superseded by `var.context_templates`
+    - `context_template_name` - name of the context template used to create the name
+    - `replace_chars_regex` - regex to use for replacing characters in property-values created by the provider - any characters that match the regex will be removed from the name
+    - `extra_values` - map of extra label-value pairs, used to create a name
+  EOT
+  type = object({
+    properties            = optional(list(string), ["environment", "name"])
+    delimiter             = optional(string, "_")
+    context_template_name = optional(string, "snowflake-user")
+    replace_chars_regex   = optional(string, "[^a-zA-Z0-9_]")
+    extra_values          = optional(map(string))
+  })
+  default = {}
+}
+
+variable "context_templates" {
+  description = "Map of context templates used for naming conventions - this variable supersedes `naming_scheme.properties` and `naming_scheme.delimiter` configuration"
+  type        = map(string)
+  default     = {}
 }

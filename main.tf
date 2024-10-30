@@ -1,22 +1,25 @@
-module "user_label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
-  context = module.this.context
+data "context_label" "this" {
+  delimiter  = local.context_template == null ? var.name_scheme.delimiter : null
+  properties = local.context_template == null ? var.name_scheme.properties : null
+  template   = local.context_template
 
-  delimiter           = coalesce(module.this.context.delimiter, "_")
-  regex_replace_chars = coalesce(module.this.context.regex_replace_chars, "/[^_a-zA-Z0-9]/")
-  label_value_case    = coalesce(module.this.context.label_value_case, "upper")
+  replace_chars_regex = var.name_scheme.replace_chars_regex
+
+  values = merge(
+    var.name_scheme.extra_values,
+    { name = var.name }
+  )
 }
 
 resource "tls_private_key" "this" {
-  count = module.this.enabled && local.generate_rsa_key ? 1 : 0
+  count = var.generate_rsa_key ? 1 : 0
 
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
 resource "random_password" "this" {
-  count = module.this.enabled && local.generate_password ? 1 : 0
+  count = var.generate_password ? 1 : 0
 
   length           = 36
   special          = true
@@ -24,15 +27,16 @@ resource "random_password" "this" {
 }
 
 resource "snowflake_user" "this" {
-  count = module.this.enabled && !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
+  count = !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
-  name         = local.name_from_descriptor
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   comment      = var.comment
 
   password             = var.generate_password ? one(random_password.this[*].result) : null
   must_change_password = var.must_change_password
+  disabled             = var.disabled
   disable_mfa          = var.disable_mfa
 
   email       = var.email
@@ -58,15 +62,16 @@ resource "snowflake_user" "this" {
 }
 
 resource "snowflake_user" "defaults_not_enforced" {
-  count = module.this.enabled && var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
+  count = var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
-  name         = local.name_from_descriptor
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   comment      = var.comment
 
   password             = var.generate_password ? one(random_password.this[*].result) : null
   must_change_password = var.must_change_password
+  disabled             = var.disabled
   disable_mfa          = var.disable_mfa
 
   email       = var.email
@@ -100,14 +105,15 @@ resource "snowflake_user" "defaults_not_enforced" {
 }
 
 resource "snowflake_service_user" "this" {
-  count = module.this.enabled && upper(var.type) == "SERVICE" ? 1 : 0
+  count = upper(var.type) == "SERVICE" ? 1 : 0
 
-  name         = local.name_from_descriptor
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
 
-  comment = var.comment
-  email   = var.email
+  comment  = var.comment
+  email    = var.email
+  disabled = var.disabled
 
   default_warehouse              = var.default_warehouse
   default_secondary_roles_option = var.default_secondary_roles_option
@@ -127,11 +133,12 @@ resource "snowflake_service_user" "this" {
 }
 
 resource "snowflake_legacy_service_user" "this" {
-  count = module.this.enabled && upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
+  count = upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
 
-  name         = local.name_from_descriptor
+  name         = data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
+  disabled     = var.disabled
 
   password             = var.generate_password ? one(random_password.this[*].result) : null
   must_change_password = var.must_change_password
@@ -154,7 +161,7 @@ resource "snowflake_legacy_service_user" "this" {
 }
 
 resource "snowflake_grant_account_role" "default_role" {
-  count = module.this.enabled && var.grant_default_roles && var.default_role != null ? 1 : 0
+  count = var.grant_default_roles && var.default_role != null ? 1 : 0
 
   user_name = one(local.snowflake_user[*].name)
   role_name = var.default_role
