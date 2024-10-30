@@ -184,7 +184,7 @@ variable "disable_mfa" {
 }
 
 variable "disabled" {
-  description = " Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user."
+  description = "Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user."
   type        = bool
   default     = false
 }
