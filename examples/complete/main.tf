@@ -59,9 +59,9 @@ module "terraform_snowflake_service_user" {
   type              = "SERVICE"
   name              = "service_user"
   context_templates = var.context_templates
-  naming_scheme = {
+  name_scheme = {
     context_template_name = "snowflake-service-user"
-    extra_labels = {
+    extra_values = {
       project = "project"
     }
   }
@@ -80,10 +80,10 @@ module "terraform_snowflake_legacy_service_user" {
   source = "../../"
   type   = "LEGACY_SERVICE"
   name   = "legacy_service_user"
-  naming_scheme = {
+  name_scheme = {
     properties = ["environment", "name", "stage", "project"]
     delimiter  = "_"
-    extra_labels = {
+    extra_values = {
       project = "project"
     }
   }
