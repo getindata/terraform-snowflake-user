@@ -55,13 +55,18 @@ module "terraform_snowflake_user_2" {
 }
 
 module "terraform_snowflake_service_user" {
-  source                = "../../"
-  type                  = "SERVICE"
-  name                  = "service_user"
-  context_templates     = var.context_templates
-  context_template_name = "snowflake-service-user"
-  comment               = "Example Snowflake Service User"
-  generate_rsa_key      = true
+  source            = "../../"
+  type              = "SERVICE"
+  name              = "service_user"
+  context_templates = var.context_templates
+  naming_scheme = {
+    context_template_name = "snowflake-service-user"
+    extra_labels = {
+      project = "project"
+    }
+  }
+  comment          = "Example Snowflake Service User"
+  generate_rsa_key = true
 
 
   query_tag   = "SERVICE_USER"
@@ -72,11 +77,17 @@ module "terraform_snowflake_service_user" {
 }
 
 module "terraform_snowflake_legacy_service_user" {
-  source             = "../../"
-  type               = "LEGACY_SERVICE"
-  name               = "legacy_service_user"
-  context_properties = ["environment", "name", "stage"]
-  generate_password  = true
+  source = "../../"
+  type   = "LEGACY_SERVICE"
+  name   = "legacy_service_user"
+  naming_scheme = {
+    properties = ["environment", "name", "stage", "project"]
+    delimiter  = "_"
+    extra_labels = {
+      project = "project"
+    }
+  }
+  generate_password = true
 
   query_tag = "LEGACY_SERVICE_USER"
 }
