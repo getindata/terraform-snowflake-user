@@ -29,7 +29,7 @@ resource "random_password" "this" {
 resource "snowflake_user" "this" {
   count = !var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
-  name         = data.context_label.this.rendered
+  name         = var.name_scheme.uppercase ? upper(data.context_label.this.rendered) : data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   comment      = var.comment
@@ -64,7 +64,7 @@ resource "snowflake_user" "this" {
 resource "snowflake_user" "defaults_not_enforced" {
   count = var.ignore_changes_on_defaults && upper(var.type) == "PERSON" ? 1 : 0
 
-  name         = data.context_label.this.rendered
+  name         = var.name_scheme.uppercase ? upper(data.context_label.this.rendered) : data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   comment      = var.comment
@@ -107,7 +107,7 @@ resource "snowflake_user" "defaults_not_enforced" {
 resource "snowflake_service_user" "this" {
   count = upper(var.type) == "SERVICE" ? 1 : 0
 
-  name         = data.context_label.this.rendered
+  name         = var.name_scheme.uppercase ? upper(data.context_label.this.rendered) : data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
 
@@ -135,7 +135,7 @@ resource "snowflake_service_user" "this" {
 resource "snowflake_legacy_service_user" "this" {
   count = upper(var.type) == "LEGACY_SERVICE" ? 1 : 0
 
-  name         = data.context_label.this.rendered
+  name         = var.name_scheme.uppercase ? upper(data.context_label.this.rendered) : data.context_label.this.rendered
   login_name   = var.login_name
   display_name = var.display_name
   disabled     = var.disabled

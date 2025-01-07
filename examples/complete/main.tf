@@ -86,6 +86,7 @@ module "terraform_snowflake_legacy_service_user" {
     extra_values = {
       project = "project"
     }
+    uppercase = false
   }
   generate_password = true
 
