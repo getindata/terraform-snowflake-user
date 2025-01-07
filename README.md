@@ -110,7 +110,7 @@ List od code and variable (API) changes:
 | <a name="input_middle_name"></a> [middle\_name](#input\_middle\_name) | Middle name of the user (works only with `type = PERSON`) | `string` | `null` | no |
 | <a name="input_must_change_password"></a> [must\_change\_password](#input\_must\_change\_password) | Should the user change the password on login. Should be set to true for non service account users | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the resource | `string` | n/a | yes |
-| <a name="input_name_scheme"></a> [name\_scheme](#input\_name\_scheme) | Naming scheme configuration for the resource. This configuration is used to generate names using context provider:<br/>    - `properties` - list of properties to use when creating the name - is superseded by `var.context_templates`<br/>    - `delimiter` - delimited used to create the name from `properties` - is superseded by `var.context_templates`<br/>    - `context_template_name` - name of the context template used to create the name<br/>    - `replace_chars_regex` - regex to use for replacing characters in property-values created by the provider - any characters that match the regex will be removed from the name<br/>    - `extra_values` - map of extra label-value pairs, used to create a name | <pre>object({<br/>    properties            = optional(list(string), ["environment", "name"])<br/>    delimiter             = optional(string, "_")<br/>    context_template_name = optional(string, "snowflake-user")<br/>    replace_chars_regex   = optional(string, "[^a-zA-Z0-9_]")<br/>    extra_values          = optional(map(string))<br/>  })</pre> | `{}` | no |
+| <a name="input_name_scheme"></a> [name\_scheme](#input\_name\_scheme) | Naming scheme configuration for the resource. This configuration is used to generate names using context provider:<br/>    - `properties` - list of properties to use when creating the name - is superseded by `var.context_templates`<br/>    - `delimiter` - delimited used to create the name from `properties` - is superseded by `var.context_templates`<br/>    - `context_template_name` - name of the context template used to create the name<br/>    - `replace_chars_regex` - regex to use for replacing characters in property-values created by the provider - any characters that match the regex will be removed from the name<br/>    - `extra_values` - map of extra label-value pairs, used to create a name<br/>    - `uppercase` - convert name to uppercase | <pre>object({<br/>    properties            = optional(list(string), ["environment", "name"])<br/>    delimiter             = optional(string, "_")<br/>    context_template_name = optional(string, "snowflake-role")<br/>    replace_chars_regex   = optional(string, "[^a-zA-Z0-9_]")<br/>    extra_values          = optional(map(string))<br/>    uppercase             = optional(bool, true)<br/>  })</pre> | `{}` | no |
 | <a name="input_network_policy"></a> [network\_policy](#input\_network\_policy) | Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. | `string` | `null` | no |
 | <a name="input_query_tag"></a> [query\_tag](#input\_query\_tag) | Optional string that can be used to tag queries and other SQL statements executed within a session. | `string` | `null` | no |
 | <a name="input_rsa_public_key"></a> [rsa\_public\_key](#input\_rsa\_public\_key) | Specifies the user's RSA public key; used for key-pair authentication. Must be on 1 line without header and trailer. | `string` | `null` | no |
@@ -156,7 +156,7 @@ No modules.
 |------|---------|
 | <a name="provider_context"></a> [context](#provider\_context) | >=0.4.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
-| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | ~> 0.96 |
+| <a name="provider_snowflake"></a> [snowflake](#provider\_snowflake) | >= 0.96 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 4.0 |
 
 ## Requirements
@@ -166,7 +166,7 @@ No modules.
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_context"></a> [context](#requirement\_context) | >=0.4.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
-| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | ~> 0.96 |
+| <a name="requirement_snowflake"></a> [snowflake](#requirement\_snowflake) | >= 0.96 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | ~> 4.0 |
 
 ## Resources
