@@ -73,5 +73,5 @@ terraform destroy -var-file=fixtures.tfvars
 
 | Name | Type |
 |------|------|
-| [snowflake_account_role.user_role](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/account_role) | resource |
+| [snowflake_account_role.user_role](https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs/resources/account_role) | resource |
 <!-- END_TF_DOCS -->

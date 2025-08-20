@@ -79,6 +79,14 @@ List od code and variable (API) changes:
   - `context_templates`
   - `name_schema`
 
+## Breaking changes in v4.x of the module
+
+- Due to rename of Snowflake terraform provider source, all `versions.tf` files were updated accordingly.
+
+  Please keep in mind to mirror this change in your own repos also.
+
+  For more information about provider rename, refer to [Snowflake documentation](https://github.com/snowflakedb/terraform-provider-snowflake/blob/main/SNOWFLAKEDB_MIGRATION.md).
+
 <!-- BEGIN_TF_DOCS -->
 
 
@@ -174,11 +182,11 @@ No modules.
 | Name | Type |
 |------|------|
 | [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [snowflake_grant_account_role.default_role](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_account_role) | resource |
-| [snowflake_legacy_service_user.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/legacy_service_user) | resource |
-| [snowflake_service_user.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/service_user) | resource |
-| [snowflake_user.defaults_not_enforced](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/user) | resource |
-| [snowflake_user.this](https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/user) | resource |
+| [snowflake_grant_account_role.default_role](https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs/resources/grant_account_role) | resource |
+| [snowflake_legacy_service_user.this](https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs/resources/legacy_service_user) | resource |
+| [snowflake_service_user.this](https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs/resources/service_user) | resource |
+| [snowflake_user.defaults_not_enforced](https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs/resources/user) | resource |
+| [snowflake_user.this](https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs/resources/user) | resource |
 | [tls_private_key.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [context_label.this](https://registry.terraform.io/providers/cloudposse/context/latest/docs/data-sources/label) | data source |
 <!-- END_TF_DOCS -->
